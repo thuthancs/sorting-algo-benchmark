@@ -8,8 +8,9 @@ def bubble_sort(arr: list[int]) -> list[int]:
         list: a sorted list of integers in increasing order
     """
     n = len(arr)
+    result = arr.copy()
     for i in range(n):
-        for j in range(i, n):
-            if arr[i] > arr[j]:
-                arr[i], arr[j] = arr[j], arr[i]
-    return arr
+        for j in range(0, n - i - 1):
+            if result[j] > result[j + 1]:
+                result[j], result[j + 1] = result[j + 1], result[j]
+    return result
