@@ -15,3 +15,7 @@
 ## Merge Sort
 
 ![merge_sort](./merge_sort.gif)
+
+## Heap Sort
+
+![heap_sort](./heap_sort.gif)
