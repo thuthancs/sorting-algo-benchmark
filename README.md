@@ -11,3 +11,7 @@
 ## Insertion Sort
 
 ![insertion_sort](./insertion_sort.gif)
+
+## Merge Sort
+
+![merge_sort](./merge_sort.gif)
