@@ -1,48 +1,53 @@
-from typing import Callable
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
 
-def animate(
-    func: Callable,
-    data: list[int],
-    title: str,
-    filename,
-    fps=30,
-    show=False,
-):
-    steps = iter(func(data))
+def animate(step_generator, title, filename=None, fps=30):
+    # Get first frame to size the plot
+    first_arr, first_highlight = next(step_generator)
+    n = len(first_arr)
 
     fig, ax = plt.subplots()
-    ax.set_title(f"{title}")
-    ax.set_xlim(-0.5, len(data) - 0.5)
-    ax.set_ylim(0, max(data) * 1.1)
+    ax.set_title(title)
+    ax.set_xlim(-0.5, n - 0.5)
+    ax.set_ylim(0, (max(first_arr) if first_arr else 1) * 1.1)
 
-    bars = ax.bar(range(len(data)), data)
+    bars = ax.bar(range(n), first_arr)
 
-    def update(_):
-        arr, highlight = next(steps)
+    def update(frame):
+        arr, highlight = frame
 
-        for bar, height in zip(bars, arr):
-            bar.set_height(height)
+        # update heights + reset colors
+        for bar, h in zip(bars, arr):
+            bar.set_height(h)
             bar.set_color("C0")
 
+        # highlight any number of indices safely
         if highlight is not None:
             for idx in highlight:
-                bars[idx].set_color("C3")
+                if 0 <= idx < n:
+                    bars[idx].set_color("C3")
 
         return bars
+
+    # IMPORTANT:
+    # We already consumed 1 frame (first_arr).
+    # So chain it back in front of the remaining generator frames.
+    def frames():
+        yield (first_arr, first_highlight)
+        yield from step_generator
 
     anim = FuncAnimation(
         fig,
         update,
-        frames=10**6,
+        frames=frames(),
         interval=1000 // fps,
         repeat=False,
         blit=False,
     )
 
-    anim.save(filename, writer="pillow", fps=fps)
-    plt.close(fig)
-    if show:
+    if filename:
+        anim.save(filename, writer="pillow", fps=fps)
+        plt.close(fig)
+    else:
         plt.show()

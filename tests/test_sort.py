@@ -1,6 +1,7 @@
 from algorithms.comparison import bubble_sort
 from algorithms.comparison import insertion_sort
 from algorithms.comparison import selection_sort
+from algorithms.comparison import merge_sort
 from tests.helpers import assert_sort
 
 
@@ -14,3 +15,7 @@ def test_insertion_sort():
 
 def test_selection_sort():
     assert_sort(selection_sort)
+
+
+def test_merge_sort():
+    assert_sort(merge_sort)
