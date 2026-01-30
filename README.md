@@ -19,3 +19,7 @@
 ## Heap Sort
 
 ![heap_sort](./heap_sort.gif)
+
+## Quick Sort
+
+![quick_sort](./quick_sort.gif)

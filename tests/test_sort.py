@@ -3,6 +3,7 @@ from algorithms.comparison import insertion_sort
 from algorithms.comparison import selection_sort
 from algorithms.comparison import merge_sort
 from algorithms.comparison import heap_sort
+from algorithms.comparison import quick_sort
 from tests.helpers import assert_sort
 
 
@@ -24,3 +25,7 @@ def test_merge_sort():
 
 def test_heap_sort():
     assert_sort(heap_sort)
+
+
+def test_quick_sort():
+    assert_sort(quick_sort)
