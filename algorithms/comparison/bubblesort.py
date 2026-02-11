@@ -1,3 +1,7 @@
+import time
+import random
+
+
 def bubble_sort(arr: list[int]) -> list[int]:
     """Bubble sort: a naive sorting algorithm that compares and swaps two adjacent values
 
